@@ -1,3 +1,5 @@
 build/
 sdkconfig
 sdkconfig.old
+main/server_root_cert.pem
+hello_world/

@@ -14,17 +14,17 @@ config WIFI_PASSWORD
 
 		Can be left blank if the network has no security set.
 
-config SERVER_IP
-    string "HTTP Server IP"
-	default "192.168.0.3"
+config SERVER_DNS
+    string "HTTP Server DNS"
+	default "www.example.com"
 	help
-		HTTP Server IP to download the image file from.
+		HTTP Server DNS address to download the image file from.
 
 		See example README.md for details.
 
 config SERVER_PORT
 	string "HTTP Server Port"
-	default "8070"
+	default "443"
 	help
 		HTTP Server port to connect to.
 		Should be chosen not to conflict with any other port used

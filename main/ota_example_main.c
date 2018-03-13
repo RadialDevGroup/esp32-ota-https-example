@@ -40,7 +40,7 @@
 
 #define EXAMPLE_WIFI_SSID CONFIG_WIFI_SSID
 #define EXAMPLE_WIFI_PASS CONFIG_WIFI_PASSWORD
-#define EXAMPLE_SERVER_IP   CONFIG_SERVER_IP
+#define EXAMPLE_SERVER_DNS   CONFIG_SERVER_DNS
 #define EXAMPLE_SERVER_PORT CONFIG_SERVER_PORT
 #define EXAMPLE_FILENAME CONFIG_EXAMPLE_FILENAME
 #define BUFFSIZE 1024
@@ -68,7 +68,7 @@ static EventGroupHandle_t wifi_event_group;
 const int CONNECTED_BIT = BIT0;
 
 static const char *REQUEST = "GET " EXAMPLE_FILENAME " HTTP/1.0\r\n"
-    "Host: " EXAMPLE_SERVER_IP "\r\n"
+    "Host: " EXAMPLE_SERVER_DNS "\r\n"
     "User-Agent: esp-idf/1.0 esp32\r\n"
     "\r\n";
 
@@ -209,7 +209,7 @@ static bool setup_ssl()
     ESP_LOGI(TAG, "Setting hostname for TLS session...");
 
      /* Hostname set here should match CN in server certificate */
-    if((ret = mbedtls_ssl_set_hostname(&ssl, EXAMPLE_SERVER_IP)) != 0)
+    if((ret = mbedtls_ssl_set_hostname(&ssl, EXAMPLE_SERVER_DNS)) != 0)
     {
         ESP_LOGE(TAG, "mbedtls_ssl_set_hostname returned -0x%x", -ret);
         abort();
@@ -253,9 +253,9 @@ static bool connect_to_http_server()
 
     mbedtls_net_init(&server_fd);
 
-    ESP_LOGI(TAG, "Connecting to %s:%s...", EXAMPLE_SERVER_IP, EXAMPLE_SERVER_PORT);
+    ESP_LOGI(TAG, "Connecting to %s:%s...", EXAMPLE_SERVER_DNS, EXAMPLE_SERVER_PORT);
 
-    if ((ret = mbedtls_net_connect(&server_fd, EXAMPLE_SERVER_IP,
+    if ((ret = mbedtls_net_connect(&server_fd, EXAMPLE_SERVER_DNS,
                                   EXAMPLE_SERVER_PORT, MBEDTLS_NET_PROTO_TCP)) != 0)
     {
         ESP_LOGE(TAG, "mbedtls_net_connect returned -%x", -ret);
